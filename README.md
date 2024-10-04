@@ -32,7 +32,7 @@ To use these activities in [VertiGIS Studio Workflow Designer](https://apps.vert
 1. Authenticate with the Quickbase service
 The quickbase connection requires a valid user token in order.  It is the responsibility of the Workflow implmentor to retreive and store the token.  [Click here](https://developer.quickbase.com/auth) for more information on how to generate a Quickbase user token.
     1. Add the `Create App Service` activity to a workflow
-    1. Set the `URL` input to the root URL of your Salesforce instance. For example, `https://acme.my.salesforce.com`.
+    1. Set the `URL` input to the root URL the Quickbase service. For example, `https://api.quickbase.com/v1`.
     1. Set the `Host Name` to your Quickbase domain.
     1. Set the `Access Token` to your valid User Token.
     1. Set the `Token Type` to 'QB-USER-TOKEN' or 'QB-TEMP-TOKEN', depending on your type of access token.
