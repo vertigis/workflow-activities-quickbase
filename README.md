@@ -1,3 +1,7 @@
+
+[![CI/CD](https://github.com/vertigis/workflow-activities-quickbase/workflows/CI/CD/badge.svg)](https://github.com/vertigis/workflow-activities-quickbase/actions)
+[![npm](https://img.shields.io/npm/v/@vertigis/workflow-activities-quickbase)](https://www.npmjs.com/package/@vertigis/workflow-activities-quickbase)
+
 This project contains activities for accessing an organization's data via the Quickbase REST API. [Click here](https://developer.quickbase.com/) for more information on the resources and requests available via the Quickbase REST API.
 
 ## Requirements
