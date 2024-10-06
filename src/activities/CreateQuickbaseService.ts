@@ -1,6 +1,6 @@
 import type { IActivityHandler } from "@vertigis/workflow";
 
-interface CreateAppServiceInputs {
+interface CreateQuickbaseServiceInputs {
   /**
    * @description The URL to the Quickbase API.
    * @required
@@ -23,7 +23,7 @@ interface CreateAppServiceInputs {
   tokenType: "QB-USER-TOKEN" | "QB-TEMP-TOKEN";
 }
 
-interface CreateAppServiceOutputs {
+interface CreateQuickbaseServiceOutputs {
   /**
    * @description The result of the activity.
    */
@@ -41,8 +41,8 @@ interface CreateAppServiceOutputs {
  * @helpUrl https://developer.quickbase.com/auth
  * @supportedApps EXB, GWV
  */
-export default class CreateAppService implements IActivityHandler {
-  execute(inputs: CreateAppServiceInputs): CreateAppServiceOutputs {
+export default class CreateQuickbaseService implements IActivityHandler {
+  execute(inputs: CreateQuickbaseServiceInputs): CreateQuickbaseServiceOutputs {
     const { url, hostName, accessToken, tokenType } = inputs;
     if (!url) {
       throw new Error("url is required");
