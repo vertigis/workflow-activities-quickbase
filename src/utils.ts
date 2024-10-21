@@ -4,7 +4,6 @@ import Field from "@arcgis/core/layers/support/Field";
 export const DefaultProjection = {
   WGS84: 4326,
 }
-
 export interface QuickbaseQueryResult {
   data: Record<
     string,
@@ -191,3 +190,4 @@ export function convertFieldType(
   }
   return type;
 }
+

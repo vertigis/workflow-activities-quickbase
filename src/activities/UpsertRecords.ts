@@ -1,13 +1,14 @@
 import type { IActivityHandler } from "@vertigis/workflow";
-import { ApiService } from "../ApiService";
-import esriRequest from "@arcgis/core/request";
+import QuickbaseService from "../QuickbaseService";
+import { post } from "../request";
+
 
 interface UpsertRecordsInputs {
   /**
    * @description The Quickbase API service.
    * @required
    */
-  service: ApiService;
+  service: QuickbaseService;
   /**
    * @description The unique identifier (dbid) of the table.
    * @required
@@ -63,33 +64,17 @@ export default class UpsertRecords implements IActivityHandler {
     if (!data) {
       throw new Error("data is required");
     }
-    // Remove trailing slashes
-    const normalizedUrl = service.url.replace(/\/*$/, "");
-    const url = `${normalizedUrl}/records`;
-    const headers = {
-      Authorization: service.access_token,
-      "Content-Type": "application/json",
-      "qb-realm-hostname": service.hostName,
-    };
-
-    const query = {
+    const body = {
       to,
       data,
       mergeFieldId,
       fieldsToReturn,
     };
-    const body = JSON.stringify(query);
-    const options: __esri.RequestOptions = {
-      method: "post",
-      body,
-      responseType: "json",
-      headers: headers,
-    };
-
-    const response = await esriRequest(url, options);
-    const responseData = response.data;
+    
+    const path = "/records"
+    const response = await post(service, to, path, body)
     return {
-      result: responseData,
+      result: response,
     };
   }
 }

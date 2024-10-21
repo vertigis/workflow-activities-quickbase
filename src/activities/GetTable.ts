@@ -1,13 +1,13 @@
 import type { IActivityHandler } from "@vertigis/workflow";
-import { ApiService } from "../ApiService";
-import esriRequest from "@arcgis/core/request";
+import QuickbaseService from "../QuickbaseService";
+import { get } from "../request";
 
 interface GetTableInputs {
   /**
    * @description The Quickbase API service.
    * @required
    */
-  service: ApiService;
+  service: QuickbaseService;
   /**
    * @description The unique identifier of an app.
    * @required
@@ -66,25 +66,10 @@ export default class GetTable implements IActivityHandler {
     const query = {
       appId,
     };
-    // Remove trailing slashes
-    const normalizedUrl = service.url.replace(/\/*$/, "");
-    const url = `${normalizedUrl}/${tableId}`;
-    const headers = {
-      Authorization: service.access_token,
-      "Content-Type": "application/json",
-      "qb-realm-hostname": service.hostName,
-    };
-
-    const options: __esri.RequestOptions = {
-      query,
-      responseType: "json",
-      headers: headers,
-    };
-
-    const response = await esriRequest(url, options);
-    const responseData = response.data;
+    const path = `/${tableId}`;
+    const response = await get(service, tableId, path, query)
     return {
-      result: responseData,
+      result: response,
     };
   }
 }

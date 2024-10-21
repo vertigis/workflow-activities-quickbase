@@ -1,13 +1,13 @@
 import type { IActivityHandler } from "@vertigis/workflow";
-import { ApiService } from "../ApiService";
-import esriRequest from "@arcgis/core/request";
+import QuickbaseService from "../QuickbaseService";
+import { get } from "../request";
 
 interface GetFieldsInputs {
   /**
    * @description The Quickbase API service.
    * @required
    */
-  service: ApiService;
+  service: QuickbaseService;
   /**
    * @description The Quickbase table Id.
    * @required
@@ -67,36 +67,23 @@ interface GetFieldsOutputs {
  */
 export default class GetFields implements IActivityHandler {
   async execute(inputs: GetFieldsInputs): Promise<GetFieldsOutputs> {
-    const { service, tableId, includeFieldPerms } = inputs;
+    const { service, tableId, includeFieldPerms = false } = inputs;
     if (!service) {
       throw new Error("service is required");
     }
     if (!tableId) {
       throw new Error("tableId is required");
     }
+
     const query = {
       tableId,
       includeFieldPerms,
     };
-    // Remove trailing slashes
-    const normalizedUrl = service.url.replace(/\/*$/, "");
-    const url = `${normalizedUrl}/fields`;
-    const headers = {
-      Authorization: service.access_token,
-      "Content-Type": "application/json",
-      "qb-realm-hostname": service.hostName,
-    };
+   
+    const response = await get(service, tableId, "/fields", query)
 
-    const options: __esri.RequestOptions = {
-      query,
-      responseType: "json",
-      headers: headers,
-    };
-
-    const response = await esriRequest(url, options);
-    const responseData = response.data;
     return {
-      result: responseData,
+      result: response,
     };
   }
 }

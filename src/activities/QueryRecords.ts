@@ -1,13 +1,12 @@
 import type { IActivityHandler } from "@vertigis/workflow";
-import { ApiService } from "../ApiService";
-import esriRequest from "@arcgis/core/request";
-
+import QuickbaseService from "../QuickbaseService";
+import { post } from "../request";
 interface QueryRecordsInputs {
   /**
    * @description The Quickbase API service.
    * @required
    */
-  service: ApiService;
+  service: QuickbaseService;
   /**
    * @description The unique identifier (dbid) of the table.
    * @required
@@ -37,7 +36,20 @@ interface QueryRecordsInputs {
 }
 
 interface QueryRecordsOutputs {
-  result: any;
+  result: {
+    data: Record<string, { value: any}>[];
+    fields:  {
+      id: number;
+      label: string;
+      type: string;
+    }[];
+    metadata: {
+      totalRecords: number;
+      numRecords: number;
+      numFields: number;
+      skip: number;
+    },
+  };
 }
 
 /**
@@ -61,34 +73,17 @@ export default class QueryRecords implements IActivityHandler {
     if (!select) {
       throw new Error("select is required");
     }
-    // Remove trailing slashes
-    const normalizedUrl = service.url.replace(/\/*$/, "");
-    const url = `${normalizedUrl}/records/query`;
-    const headers = {
-      Authorization: service.access_token,
-      "Content-Type": "application/json",
-      "qb-realm-hostname": service.hostName,
-    };
-
-    const query = {
+    const body = {
       from,
       select,
       where,
       groupBy,
       sortBy,
     };
-    const body = JSON.stringify(query);
-    const options: __esri.RequestOptions = {
-      method: "post",
-      body,
-      responseType: "json",
-      headers: headers,
-    };
-
-    const response = await esriRequest(url, options);
-    const responseData = response.data;
+    const path = `/records/query`;
+    const response = await post(service, from, path, body)
     return {
-      result: responseData,
+      result: response,
     };
   }
 }

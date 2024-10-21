@@ -2,7 +2,10 @@ import type {
   IActivityHandler,
   IActivityContext,
 } from "@vertigis/workflow/IActivityHandler";
-import { QuickbaseField, QuickbaseRecord } from "../utils";
+import { 
+  QuickbaseField, 
+  QuickbaseRecord 
+} from "../utils";
 import Graphic from "@arcgis/core/Graphic";
 import { MapProvider } from "@vertigis/workflow/activities/arcgis/MapProvider";
 import { activate } from "@vertigis/workflow/Hooks";

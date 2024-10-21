@@ -1,6 +1,6 @@
 // Activities will be re-exported from this file.
 
-export { default as CreateAppService } from "./activities/CreateQuickbaseService";
+export { default as CreateQuickbaseService } from "./activities/CreateQuickbaseService";
 
 export { default as DeleteRecords } from "./activities/DeleteRecords";
 

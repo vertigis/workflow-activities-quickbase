@@ -1,13 +1,12 @@
 import type { IActivityHandler } from "@vertigis/workflow";
-import { ApiService } from "../ApiService";
-import esriRequest from "@arcgis/core/request";
-
+import QuickbaseService from "../QuickbaseService";
+import { httpDelete } from "../request";
 interface DeleteRecordsInputs {
   /**
    * @description The Quickbase API service.
    * @required
    */
-  service: ApiService;
+  service: QuickbaseService;
   /**
    * @description The unique identifier (dbid) of the table.
    * @required
@@ -46,31 +45,14 @@ export default class DeleteRecords implements IActivityHandler {
     if (!where) {
       throw new Error("where is required");
     }
-    // Remove trailing slashes
-    const normalizedUrl = service.url.replace(/\/*$/, "");
-    const url = `${normalizedUrl}/records`;
-    const headers = {
-      Authorization: service.access_token,
-      "Content-Type": "application/json",
-      "qb-realm-hostname": service.hostName,
-    };
-
-    const query = {
+    const body = {
       from,
       where,
     };
-    const body = JSON.stringify(query);
-    const options: __esri.RequestOptions = {
-      method: "delete",
-      body,
-      responseType: "json",
-      headers: headers,
-    };
+    const response = await httpDelete(service, from, "/records", body)
 
-    const response = await esriRequest(url, options);
-    const responseData = response.data;
     return {
-      result: responseData,
+      result: response,
     };
   }
 }

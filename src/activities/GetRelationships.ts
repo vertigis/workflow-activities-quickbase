@@ -1,13 +1,14 @@
 import type { IActivityHandler } from "@vertigis/workflow";
-import { ApiService } from "../ApiService";
-import esriRequest from "@arcgis/core/request";
+import QuickbaseService from "../QuickbaseService";
+import { get } from "../request";
+
 
 interface GetRelationshipsInputs {
   /**
    * @description The Quickbase API service.
    * @required
    */
-  service: ApiService;
+  service: QuickbaseService;
   /**
    * @description The Quickbase table Id.
    * @required
@@ -20,7 +21,37 @@ interface GetRelationshipsInputs {
 }
 
 interface GetRelationshipsOutputs {
-  result: any;
+  result: {
+    metadata: {
+      numRelationships: number;
+      skip: number;
+      totalRelationships: number;
+    },
+    relationships: [
+      {
+        childTableId: string;
+        foreignKeyField: {
+          id: number;
+          label: string;
+          type: string;
+        },
+        id: number;
+        isCrossApp: boolean;
+        lookupFields: {
+          id: number;
+          label: string;
+          type: string;
+        }[];
+        parentTableId: string,
+        summaryFields: {
+          id: number;
+          label: string;
+          type: string;
+        }[];
+
+      }
+    ]
+  };
 }
 
 /**
@@ -45,25 +76,10 @@ export default class GetRelationships implements IActivityHandler {
     const query = {
       skip,
     };
-    // Remove trailing slashes
-    const normalizedUrl = service.url.replace(/\/*$/, "");
-    const url = `${normalizedUrl}/tables/${tableId}/relationships`;
-    const headers = {
-      Authorization: service.access_token,
-      "Content-Type": "application/json",
-      "qb-realm-hostname": service.hostName,
-    };
-
-    const options: __esri.RequestOptions = {
-      query,
-      responseType: "json",
-      headers: headers,
-    };
-
-    const response = await esriRequest(url, options);
-    const responseData = response.data;
+    const path = `/tables/${tableId}/relationships`;
+    const response = await get(service, tableId, path, query)
     return {
-      result: responseData,
+      result: response,
     };
   }
 }
