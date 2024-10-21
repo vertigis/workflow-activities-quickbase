@@ -18,8 +18,8 @@ export { default as QueryRecords } from "./activities/QueryRecords";
 
 export { default as QuickbaseRecordsToGraphics } from "./activities/QuickbaseRecordsToGraphics";
 
-export { default as UpsertRecords } from "./activities/UpsertRecords";
-
 export { default as QuickbaseToEsriFieldInfos } from "./activities/QuickbaseToEsriFieldInfos";
 
 export { default as QuickbaseToEsriFields } from "./activities/QuickbaseToEsriFields";
+
+export { default as UpsertRecords } from "./activities/UpsertRecords";
