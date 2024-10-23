@@ -6,8 +6,7 @@ import { activate } from "@vertigis/workflow/Hooks";
 import {
   QuickbaseField,
   QuickbaseQueryResult,
-  quickbaseToEsriField,
-  quickbaseToEsriFields,
+  quickbaseToEsriField
 } from "../utils";
 import Graphic from "@arcgis/core/Graphic";
 import * as jsonUtils from "@arcgis/core/geometry/support/jsonUtils";
