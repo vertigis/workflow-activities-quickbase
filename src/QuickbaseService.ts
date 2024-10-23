@@ -4,18 +4,19 @@
 export default class QuickbaseService {
   instanceUrl: string;
   hostName: string;
+  _origin: string;
   private _tokens = new Map<string, QuickbaseToken>();
 
-  constructor(url, hostname) {
+  constructor(url, hostname, origin) {
     this.hostName = hostname;
     this.instanceUrl = url;
-
+    this._origin = origin;
   }
 
   async getToken(id: string): Promise<string> {
     const qbToken = this._tokens.get(id);
     if (qbToken && qbToken.expiration < Date.now()) {
-      return qbToken.token;
+      return `QB-TEMP-TOKEN ${qbToken.token}`;;
     } else {
       const message = await this.postMessageAwaitReply(id);
       if (message && message.error) {
@@ -25,13 +26,12 @@ export default class QuickbaseService {
         return `QB-TEMP-TOKEN ${message.parameters.token}`;
       }
       throw new Error("The token request failed unexpectedly.")
-
     }
-
   }
 
   postMessageAwaitReply(id: string): Promise<MessageResponse> {
     const owner = window.parent === window ? window.opener : window.parent;
+
     if (!owner) {
       throw new Error(
         "Parent window or window opener not found."
@@ -50,11 +50,9 @@ export default class QuickbaseService {
         channel.port1.close();
         resolve(data);
       };
-
-      owner.postMessage({ action: "authenticate", parameters: { id } }, "https://" + this.hostName, [channel.port2]);
+      owner.postMessage({ action: "authenticate", parameters: { id } }, this._origin, [channel.port2]);
     });
   }
-
 }
 
 export interface QuickbaseToken {

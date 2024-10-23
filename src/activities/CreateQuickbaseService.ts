@@ -14,12 +14,14 @@ interface CreateQuickbaseServiceInputs {
    * @required
    */
   hostName: string;
+  /**
+   * @description The origin of the hosting Quickbase window.
+   * @required
+   */
+  targetOrigin: string;
 }
 
 interface CreateQuickbaseServiceOutputs {
-  /**
-   * @description The result of the activity.
-   */
   result: QuickbaseService;
 }
 
@@ -32,20 +34,20 @@ interface CreateQuickbaseServiceOutputs {
  */
 export default class CreateQuickbaseService implements IActivityHandler {
   execute(inputs: CreateQuickbaseServiceInputs): CreateQuickbaseServiceOutputs {
-    const { quickbaseUrl, hostName } = inputs;
+    const { quickbaseUrl, hostName, targetOrigin } = inputs;
     if (!quickbaseUrl) {
       throw new Error("quickbaseUrl is required");
+    }
+    if (!targetOrigin) {
+      throw new Error("targetOrigin is required");
     }
     if (!hostName) {
       throw new Error("hostName is required");
     }
-
     const quickbaseUri = quickbaseUrl.replace(/\/*$/, "");
 
     return {
-      result: new QuickbaseService(quickbaseUri, hostName),
+      result: new QuickbaseService(quickbaseUri, hostName, targetOrigin),
     }
   }
-
-
 }

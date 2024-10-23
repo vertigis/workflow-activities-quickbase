@@ -20,9 +20,6 @@ interface GetFieldsInputs {
 }
 
 interface GetFieldsOutputs {
-  /**
-   * @description The list of field definitions.
-   */
   result: {
     id: number;
     label: string;

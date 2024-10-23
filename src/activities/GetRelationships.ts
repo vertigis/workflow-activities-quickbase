@@ -48,7 +48,6 @@ interface GetRelationshipsOutputs {
           label: string;
           type: string;
         }[];
-
       }
     ]
   };
@@ -62,7 +61,6 @@ interface GetRelationshipsOutputs {
  * @supportedApps EXB, GWV
  */
 export default class GetRelationships implements IActivityHandler {
-  /** Perform the execution logic of the activity. */
   async execute(
     inputs: GetRelationshipsInputs,
   ): Promise<GetRelationshipsOutputs> {

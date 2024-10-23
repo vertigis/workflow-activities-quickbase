@@ -21,9 +21,6 @@ interface GetTableInputs {
 }
 
 interface GetTableOutputs {
-  /**
-   * @description The list of field definitions.
-   */
   result: {
     name: string;
     created: string;

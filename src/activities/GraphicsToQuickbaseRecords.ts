@@ -74,10 +74,7 @@ export default class GraphicsToQuickbaseRecords implements IActivityHandler {
     if (!quickbaseFields) {
       throw new Error("quickbaseFields is required");
     }
-
     const outSpatialReference = wkid ? type.getOutSR(wkid) : type.getOutSR(DefaultProjection.WGS84);
-
-
     return {
       result: await this.graphicsToQuickbaseRecords(
         graphics,
@@ -100,7 +97,7 @@ export default class GraphicsToQuickbaseRecords implements IActivityHandler {
   ): Promise<QuickbaseRecord[]> {
     const records: QuickbaseRecord[] = [];
     for (const graphic of graphics) {
-      const record = await this.graphictoQuickbaseRecordToGraphic(
+      const record = await this.graphicToQuickbaseRecord(
         graphic,
         quickbaseFields,
         outSpatialReference,
@@ -113,7 +110,7 @@ export default class GraphicsToQuickbaseRecords implements IActivityHandler {
     return records;
   }
 
-  async graphictoQuickbaseRecordToGraphic(
+  async graphicToQuickbaseRecord(
     graphic: Graphic,
     quickbaseFields: QuickbaseField[],
     outSpatialReference: __esri.SpatialReference,

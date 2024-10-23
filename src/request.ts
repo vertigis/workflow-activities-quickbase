@@ -134,5 +134,3 @@ export async function getResponseError(response: Response) {
         return new QuickbaseRequestError(response.status, errors);
     }
 }
-
-
