@@ -1,7 +1,3 @@
-
-[![CI/CD](https://github.com/vertigis/workflow-activities-quickbase/workflows/CI/CD/badge.svg)](https://github.com/vertigis/workflow-activities-quickbase/actions)
-[![npm](https://img.shields.io/npm/v/@vertigis/workflow-activities-quickbase)](https://www.npmjs.com/package/@vertigis/workflow-activities-quickbase)
-
 This project contains activities for accessing an organization's data via the Quickbase REST API. [Click here](https://developer.quickbase.com/) for more information on the resources and requests available via the Quickbase REST API.
 
 ## Requirements
@@ -32,7 +28,7 @@ To use these activities in [VertiGIS Studio Workflow Designer](https://apps.vert
 
 1. Authenticate with the Quickbase service
 The quickbase connection requires a valid user token in order.  It is the responsibility of the Workflow implmentor to retreive and store the token.  [Click here](https://developer.quickbase.com/auth) for more information on how to generate a Quickbase user token.
-    1. Add the `Create App Service` activity to a workflow
+    1. Add the `Create Quickbase Service` activity to a workflow
     1. Set the `URL` input to the root URL the Quickbase service. For example, `https://api.quickbase.com/v1`.
     1. Set the `Host Name` to your Quickbase domain.
     1. Set the `Access Token` to your valid User Token.
