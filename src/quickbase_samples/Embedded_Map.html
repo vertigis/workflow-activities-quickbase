@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>VertiGIS Studio Web Viewer</title>
+            
+        <style>
+            html {
+                box-sizing: border-box;
+            }
+            *,
+            *:before,
+            *:after {
+                box-sizing: inherit;
+            }
+
+            body {
+                margin: 0;
+                padding: 0;
+                display: flex;
+                flex-direction: row;
+                overflow: hidden;
+                color: #fff;
+                background-color: #333;
+            }
+
+            input,
+            label {
+                display: block;
+            }
+
+            .parent,
+            iframe {
+                height: 100vh;
+            }
+
+            .parent {
+                flex-shrink: 0;
+                margin: 0;
+                padding: 1rem;
+                overflow-y: auto;
+                border-right: 2px solid #212121;
+            }
+
+            iframe {
+                flex-grow: 1;
+                border: none;
+            }
+
+            div,
+            hr {
+                margin-top: 1rem;
+            }
+        </style>
+    </head>
+    <body>
+        <iframe id="embedded-viewer" src="<<URL TO YOUR VERTIGIS STUDIO WEB APP>>"></iframe>
+ 	<script src="?a=dbpage&pageId=4&vsTableId=<<TABLE ID FOR THE VERTIGIS PROPERTIES>>"></script>
+    </body>
+</html>
