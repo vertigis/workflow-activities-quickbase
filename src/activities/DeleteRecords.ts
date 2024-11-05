@@ -31,7 +31,7 @@ interface DeleteRecordsOutputs {
  * @description Deletes record(s) in a table based on a query.
  * @helpUrl https://developer.quickbase.com/operation/deleteRecords
  * @clientOnly
- * @supportedApps EXB, GWV
+ * @supportedApps GWV
  */
 export default class DeleteRecords implements IActivityHandler {
   async execute(inputs: DeleteRecordsInputs): Promise<DeleteRecordsOutputs> {

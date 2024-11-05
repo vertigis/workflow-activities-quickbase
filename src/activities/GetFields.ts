@@ -60,7 +60,7 @@ interface GetFieldsOutputs {
  * @description  Gets the properties for all fields in a specific table.
  * @helpUrl https://developer.quickbase.com/operation/getFields
  * @clientOnly
- * @supportedApps EXB, GWV
+ * @supportedApps GWV
  */
 export default class GetFields implements IActivityHandler {
   async execute(inputs: GetFieldsInputs): Promise<GetFieldsOutputs> {

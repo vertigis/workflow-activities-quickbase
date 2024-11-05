@@ -46,7 +46,7 @@ interface GetTableOutputs {
  * @description  Gets the properties of an individual table that is part of an application.
  * @helpUrl https://developer.quickbase.com/operation/getTable
  * @clientOnly
- * @supportedApps EXB, GWV
+ * @supportedApps GWV
  */
 export default class GetTable implements IActivityHandler {
   async execute(inputs: GetTableInputs): Promise<GetTableOutputs> {

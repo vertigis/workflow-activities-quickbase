@@ -40,7 +40,7 @@ interface GetTablesOutputs {
  * @description  Gets a list of all the tables that exist in a specific application. 
  * @helpUrl https://developer.quickbase.com/operation/getAppTables
  * @clientOnly
- * @supportedApps EXB, GWV
+ * @supportedApps GWV
  */
 export default class GetTables implements IActivityHandler {
   async execute(inputs: GetTablesInputs): Promise<GetTablesOutputs> {

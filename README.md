@@ -27,7 +27,7 @@ To use these activities in [VertiGIS Studio Workflow Designer](https://apps.vert
 ### Use the Quickbase activities in a workflow
 
 1. Authenticate with the Quickbase service
-The Quickbase activity pack is intended to be used exclusively by VertiGIS Studio Web applications embedded in browser window within Quickbase, and a secure postMessage communication channel is established with Quickbase using postMessage.  Once the communication is established, the Workflow will request tokens using the identity of the user logged into Quickbase.
+The Quickbase activity pack is intended to be used exclusively by VertiGIS Studio Web applications embedded in a browser window within Quickbase, and a secure postMessage communication channel is established with Quickbase using postMessage.  Once the communication is established, the Workflow will request tokens using the identity of the user logged into Quickbase.
     1. Add the `Create Quickbase Service` activity to a workflow
     1. Set the `Quickbase URL` input to the root URL the Quickbase service. For example, `https://api.quickbase.com/v1`.
     1. Set the `Host Name` to your Quickbase domain.

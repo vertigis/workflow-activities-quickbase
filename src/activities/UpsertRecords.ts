@@ -50,7 +50,7 @@ interface UpsertRecordsOutputs {
  *              Note: Maximum payload size is 40MB.
  * @helpUrl https://developer.quickbase.com/operation/upsert
  * @clientOnly
- * @supportedApps EXB, GWV
+ * @supportedApps GWV
  */
 export default class UpsertRecords implements IActivityHandler {
   async execute(inputs: UpsertRecordsInputs): Promise<UpsertRecordsOutputs> {

@@ -1,27 +1,38 @@
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
-
-
 export default class QuickbaseService {
-  instanceUrl: string;
+  readonly instanceUrl: string;
   hostName: string;
-  _origin: string;
+  private _origin: string;
   private _tokens = new Map<string, QuickbaseToken>();
+  private _owner: Window;
 
-  constructor(url, hostname, origin) {
+  constructor(url: string, hostname: string, origin: string) {
+    this._owner = window.parent === window ? window.opener : window.parent;
+
+    if (!this._owner) {
+      throw new Error(
+        "Parent window or window opener not found. Please ensure you are instantiating the service from a VertiGIS Studio app hosted in Quickbase."
+      );
+    }
+    if(!url) {
+      throw new Error(
+        "Quickbase REST API URL is required."
+      )
+    }
+    this.instanceUrl = url.replace(/\/+$/, "");
     this.hostName = hostname;
-    this.instanceUrl = url;
     this._origin = origin;
   }
 
   async getToken(id: string): Promise<string> {
     const qbToken = this._tokens.get(id);
     if (qbToken && qbToken.expiration < Date.now()) {
-      return `QB-TEMP-TOKEN ${qbToken.token}`;;
+      return `QB-TEMP-TOKEN ${qbToken.token}`;
     } else {
       const message = await this.postMessageAwaitReply(id);
-      if (message && message.error) {
+      if (message?.error) {
         throw new Error(message.error)
-      } else if (message.parameters && message.parameters.token) {
+      } else if (message?.parameters && message.parameters.token) {
         this._tokens.set(id, message.parameters);
         return `QB-TEMP-TOKEN ${message.parameters.token}`;
       }
@@ -30,19 +41,6 @@ export default class QuickbaseService {
   }
 
   postMessageAwaitReply(id: string): Promise<MessageResponse> {
-    const owner = window.parent === window ? window.opener : window.parent;
-
-    if (!owner) {
-      throw new Error(
-        "Parent window or window opener not found."
-      );
-    }
-
-    if (!this.hostName) {
-      throw new Error(
-        "hostname not found."
-      );
-    }
 
     return new Promise<MessageResponse>(resolve => {
       const channel = new MessageChannel();
@@ -50,7 +48,7 @@ export default class QuickbaseService {
         channel.port1.close();
         resolve(data);
       };
-      owner.postMessage({ action: "authenticate", parameters: { id } }, this._origin, [channel.port2]);
+      this._owner.postMessage({ action: "authenticate", parameters: { id } }, this._origin, [channel.port2]);
     });
   }
 }

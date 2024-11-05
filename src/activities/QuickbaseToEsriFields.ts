@@ -21,7 +21,7 @@ interface QuickbaseToEsriFieldsOutputs {
  * @description Converts Quickbase fields to Esri fields.
  * @helpUrl https://helpv2.quickbase.com/hc/en-us/sections/4572535340308-Fields
  * @clientOnly
- * @supportedApps EXB, GWV
+ * @supportedApps GWV
  */
 export default class QuickbaseToEsriFields implements IActivityHandler {
   execute(inputs: QuickbaseToEsriFieldsInputs): QuickbaseToEsriFieldsOutputs {

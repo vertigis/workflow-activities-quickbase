@@ -59,7 +59,7 @@ interface QueryRecordsOutputs {
  *              iterate over the response and gather more data.
  * @helpUrl https://developer.quickbase.com/operation/runQuery
  * @clientOnly
- * @supportedApps EXB, GWV
+ * @supportedApps GWV
  */
 export default class QueryRecords implements IActivityHandler {
   async execute(inputs: QueryRecordsInputs): Promise<QueryRecordsOutputs> {

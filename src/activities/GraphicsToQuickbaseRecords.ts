@@ -51,7 +51,7 @@ interface GraphicsToQuickbaseRecordsOutputs {
  * @category Quickbase
  * @description Convert Esri Graphics to Quickbase records.
  * @clientOnly
- * @supportedApps EXB, GWV
+ * @supportedApps GWV
  */
 @activate(MapProvider)
 export default class GraphicsToQuickbaseRecords implements IActivityHandler {

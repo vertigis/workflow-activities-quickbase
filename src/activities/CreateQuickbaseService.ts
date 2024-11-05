@@ -30,7 +30,7 @@ interface CreateQuickbaseServiceOutputs {
  * @description Creates an authenticated connection to Quickbase.  
  * @clientOnly
  * @helpUrl https://developer.quickbase.com/auth
- * @supportedApps EXB, GWV
+ * @supportedApps GWV
  */
 export default class CreateQuickbaseService implements IActivityHandler {
   execute(inputs: CreateQuickbaseServiceInputs): CreateQuickbaseServiceOutputs {
@@ -44,10 +44,8 @@ export default class CreateQuickbaseService implements IActivityHandler {
     if (!hostName) {
       throw new Error("hostName is required");
     }
-    const quickbaseUri = quickbaseUrl.replace(/\/*$/, "");
-
     return {
-      result: new QuickbaseService(quickbaseUri, hostName, targetOrigin),
+      result: new QuickbaseService(quickbaseUrl, hostName, targetOrigin),
     }
   }
 }
