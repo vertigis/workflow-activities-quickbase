@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 export default class QuickbaseService {
   readonly instanceUrl: string;
-  hostName: string;
+  readonly hostName: string;
   private _origin: string;
   private _tokens = new Map<string, QuickbaseToken>();
   private _owner: Window;
