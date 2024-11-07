@@ -19,6 +19,12 @@ export default class QuickbaseService {
         "Quickbase REST API URL is required."
       )
     }
+
+    if(!hostname) {
+      throw new Error(
+        "Quickbase Hostname is required."
+      )
+    }
     this.instanceUrl = url.replace(/\/+$/, "");
     this.hostName = hostname;
     this._origin = origin;
